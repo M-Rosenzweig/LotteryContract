@@ -133,4 +133,29 @@ describe("Lottery Contract", () => {
     assert.equal(0, players.length);
     // console.log(players);
   });
+
+  it('clears the balance of the contract to zero', async () => {
+    await lottery.methods.enter().send({
+        from: accounts[0],
+        value: web3.utils.toWei("2", "ether"),
+      });
+  
+      await lottery.methods.enter().send({
+        from: accounts[1],
+        value: web3.utils.toWei("2", "ether"),
+      });
+
+    const initialBalance = await web3.eth.getBalance(lottery.options.address)
+
+    console.log(initialBalance);
+
+    await lottery.methods.pickWinner().send({ from: accounts[0] });
+
+    const balance = await web3.eth.getBalance(lottery.options.address)
+
+    assert.equal(0, balance)
+
+
+
+  })
 });
