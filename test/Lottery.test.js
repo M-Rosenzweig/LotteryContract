@@ -5,11 +5,12 @@ const web3 = new Web3(ganache.provider());
 
 // Web3 is the portal that allows us to talk to a node in a blockchain network
 // the class has methods depending on what blockchain we working with for example web3.eth (for ethereum)
-// in this case the provider is ganache with imitates ethereum in a local setup (i think)
+// in this case the provider is ganache which imitates ethereum in a local setup
 
 // this test actually deploys it to ganache and tests if the functionality works. (Ganache is entirely local aka no etherscan vibes)
 
 const { interface, bytecode } = require("../compile");
+// abi and evm instead of interface and bytecode 
 
 let lottery;
 let accounts;
@@ -17,7 +18,7 @@ let accounts;
 beforeEach(async () => {
   accounts = await web3.eth.getAccounts();
 
-  lottery = await new web3.eth.Contract(JSON.parse(interface))
+  lottery = await new web3.eth.Contract(JSON.parse(interface)) // abi (later versions)
     .deploy({ data: bytecode })
     .send({ from: accounts[0], gas: "1000000" });
 });
