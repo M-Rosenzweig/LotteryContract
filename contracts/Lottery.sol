@@ -7,6 +7,10 @@ contract Lottery {
     function Lottery() public {
         manager = msg.sender;
     }
+    // updated version - 
+    //     constructor() {
+    //     manager = msg.sender;
+    // }
     
     function enter() public payable {
         require(msg.value > .01 ether);
@@ -32,4 +36,8 @@ contract Lottery {
     function getAllPlayers() public view returns (address[]) {
         return players;
     }
+    // address payable[] memory
+    // function getPlayers() public view returns (address payable[] memory) {
+    //     return players;
+    // }
 }   
